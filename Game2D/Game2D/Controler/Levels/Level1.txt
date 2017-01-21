@@ -1,0 +1,11 @@
+﻿maincharacter 20 20
+ghost 20 300
+ghost 20 1220
+ghost 20 1400
+ground 300 0 300 180
+ground 360 180 240 60
+ground 420 240 180 60
+ground 480 300 120 300
+ground 480 720 120 300
+ground 300 1020 300 180
+ground 480 1200 120 720

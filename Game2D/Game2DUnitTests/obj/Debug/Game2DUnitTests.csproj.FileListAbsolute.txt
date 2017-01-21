@@ -1,0 +1,14 @@
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\obj\Debug\Game2DUnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\csfml-audio-2.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\csfml-graphics-2.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\csfml-window-2.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\libsndfile-1.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\openal32.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\Game2DUnitTests.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\Game2DUnitTests.pdb
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\Game2D.exe
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\sfmlnet-graphics-2.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\sfmlnet-window-2.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\Game2D.pdb
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\obj\Debug\Game2DUnitTests.dll
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\obj\Debug\Game2DUnitTests.pdb
