@@ -17,6 +17,6 @@ namespace Game2D.Model
         void CheckCollision(Ground Collider);
         void Draw(RenderWindow windowHandler, int xOffset, int yOffset);
         bool GetIsSituated();
-        void CheckCollision(IMotionless collider);
+        bool Alive { get; }
     }
 }

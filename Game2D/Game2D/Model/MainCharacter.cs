@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.Window;
 using Game2D.Model.Components;
@@ -24,6 +25,12 @@ namespace Game2D.Model
             JumpsRight
         }
 
+        public enum CharacterSounds
+        {
+            Jump,
+            Kick
+        }
+
         private bool binateSprite;
         private bool alive;
         private bool bodyCollides;
@@ -41,10 +48,12 @@ namespace Game2D.Model
         private CharacterSide side;
 
         private Dictionary<CharacterSide, Sprite> sprite;
+        private Dictionary<CharacterSounds, Sound> sound;
         private Rectangle bodyRect;
         private Rectangle feetRect;
         public MotionDirector director;
 
+        public bool Alive { get { return alive; } }
         public Rectangle BodyRect { get { return bodyRect; } }
         public Rectangle FeetRect { get { return feetRect; } }
 
@@ -62,13 +71,27 @@ namespace Game2D.Model
             fallSpeed = 0;
             animationIterator = 0;
 
-            rect.Height = Textures.MainCharacterTextures["Right1"].Size.Y;
-            rect.Width = Textures.MainCharacterTextures["Right1"].Size.X;
+            try
+            {
+                string path = "../../../Game2D/Sounds/";
 
-            sprite = new Dictionary<CharacterSide, Sprite>();
+                sound = new Dictionary<CharacterSounds, Sound>();
+
+                sound.Add(CharacterSounds.Jump, new Sound(new SoundBuffer(path + "jump.wav")));
+                sound.Add(CharacterSounds.Kick, new Sound(new SoundBuffer(path + "kick.wav")));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Cannot load the sounds", e);
+            }
 
             try
             {
+                rect.Height = Textures.MainCharacterTextures["Right1"].Size.Y;
+                rect.Width = Textures.MainCharacterTextures["Right1"].Size.X;
+
+                sprite = new Dictionary<CharacterSide, Sprite>();
+
                 sprite.Add(CharacterSide.StaysLeft, new Sprite(Textures.MainCharacterTextures["Left0"]));
                 sprite.Add(CharacterSide.StaysRight, new Sprite(Textures.MainCharacterTextures["Right0"]));
                 sprite.Add(CharacterSide.MovesLeft1, new Sprite(Textures.MainCharacterTextures["Left1"]));
@@ -80,7 +103,7 @@ namespace Game2D.Model
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine("Cannot create a sprite: ", e);
             }
 
             bodyRect = rect;
@@ -104,6 +127,7 @@ namespace Game2D.Model
                 {
                     fallSpeed = 4 * (-speed);
                     feetCollides = false;
+                    sound[CharacterSounds.Jump].Play();
                 }
                 else
                 {
@@ -211,12 +235,17 @@ namespace Game2D.Model
             if (this.feetRect.CheckCollisions(Collider.BodyRect))
             {
                 feetCollides = true;
+
+                if (sound[CharacterSounds.Kick].Status != SoundStatus.Playing)
+                {
+                    sound[CharacterSounds.Kick].Play();
+                }
             }
 
             if (this.bodyRect.CheckCollisions(Collider.BodyRect))
             {
                 bodyCollides = true;
-                health -= Ghost.Damage;
+                alive = false;
             }
         }
 

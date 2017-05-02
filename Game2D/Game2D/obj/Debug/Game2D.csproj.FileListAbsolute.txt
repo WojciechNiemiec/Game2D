@@ -12,3 +12,6 @@ C:\Users\Wojtek\Desktop\Game2D\Game2D\bin\Debug\sfmlnet-graphics-2.dll
 C:\Users\Wojtek\Desktop\Game2D\Game2D\bin\Debug\sfmlnet-window-2.dll
 C:\Users\Wojtek\Desktop\Game2D\Game2D\obj\Debug\Game2D.exe
 C:\Users\Wojtek\Desktop\Game2D\Game2D\obj\Debug\Game2D.pdb
+C:\Users\Wojtek\Studia\PK\Semestr3\ZPO\Game2D\Game2D\bin\Debug\Game2D.exe.config
+C:\Users\Wojtek\Studia\PK\Semestr3\ZPO\Game2D\Game2D\obj\Debug\Game2D.exe
+C:\Users\Wojtek\Studia\PK\Semestr3\ZPO\Game2D\Game2D\obj\Debug\Game2D.pdb

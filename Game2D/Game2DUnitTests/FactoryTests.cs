@@ -32,7 +32,7 @@ namespace Game2DUnitTests
             objectDescriptor = " OppOnEnt 10 10 ";
             product = Factory.CreateRectangularObject(objectDescriptor);
             T = product.GetType();
-            rect = ((Ghost)product).Rect;
+            rect = ((Ghost)product).BodyRect;
 
             Assert.IsTrue(product.GetType().Equals(typeof(Ghost)));
             Assert.IsTrue(T.Equals(typeof(Ghost)));

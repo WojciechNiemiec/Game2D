@@ -14,13 +14,16 @@ namespace Game2D.Model
 {
     public class Ghost: IMovable
     {
+        //zmiany zmiany zmiany zmiany
         public enum GhostSide
         {
-            Left,
-            Right
+            Left1,
+            Left2,
+            Right1,
+            Right2
         }
 
-        private bool binateTexture;
+        private bool binateSprite;
         private bool alive;
         private bool bodyCollides;
         private bool feetCollides;
@@ -29,69 +32,60 @@ namespace Game2D.Model
 
         private const int speed = 2;
         private int fallSpeed;
-        private const int animationSpeed = 10;
+        private const int animationSpeed = 2;
         private int animationIterator;
         private GhostSide side;
 
-        private Sprite sprite;
+        private Dictionary<GhostSide, Sprite> sprite;
         private Rectangle bodyRect;
         private Rectangle feetRect;
         private Rectangle groundRect;
         public MotionDirector director;
 
-
+        public bool Alive { get { return alive; } }
         public Rectangle BodyRect { get { return bodyRect; } }
         public const int Damage = 20;
 
-        private void prepareNewTexture()
+        private void chooseSprite()
         {
-            animationIterator++;
-
-            if (side == GhostSide.Left)
-            {
-                if (animationIterator < animationSpeed / 2)
-                {
-                    sprite = new Sprite(Textures.GhostTextures["Left0"]);
-                }
-                else
-                {
-                    sprite = new Sprite(Textures.GhostTextures["Left1"]);
-                }
-            }
-            else if (side == GhostSide.Right)
-            {
-                if (animationIterator < animationSpeed / 2)
-                {
-                    sprite = new Sprite(Textures.GhostTextures["Right0"]);
-                }
-                else
-                {
-                    sprite = new Sprite(Textures.GhostTextures["Right1"]);
-                }
-            }
-
-            if (animationIterator > animationSpeed)
+            if (animationIterator++ > animationSpeed)
             {
                 animationIterator = 0;
+                binateSprite = !binateSprite;
+            }
+
+            switch (side)
+            {
+                case GhostSide.Left1:
+                case GhostSide.Left2:
+                    side = (binateSprite) ? GhostSide.Left1 : GhostSide.Left2;
+                    break;
+                case GhostSide.Right1:
+                case GhostSide.Right2:
+                    side = (binateSprite) ? GhostSide.Right1 : GhostSide.Right2;
+                    break;
             }
         }
 
         public Ghost(Rectangle rect)
         {
-            binateTexture = true;
+            binateSprite = true;
             alive = true;
             bodyCollides = false;
             feetCollides = true;
             groundCollides = false;
             fallSpeed = 0;
             animationIterator = 0;
-            side = GhostSide.Right;
+            side = GhostSide.Right1;
 
             rect.Height = Textures.GhostTextures["Right1"].Size.Y;
             rect.Width = Textures.GhostTextures["Right1"].Size.X;
 
-            sprite = new Sprite(Textures.GhostTextures["Right1"]);
-            sprite.Position = new Vector2f(rect.Left, rect.Top);
+            sprite = new Dictionary<GhostSide, Sprite>();
+            sprite.Add(GhostSide.Left1, new Sprite(Textures.GhostTextures["Left1"]));
+            sprite.Add(GhostSide.Left2, new Sprite(Textures.GhostTextures["Left2"]));
+            sprite.Add(GhostSide.Right1, new Sprite(Textures.GhostTextures["Right1"]));
+            sprite.Add(GhostSide.Right2, new Sprite(Textures.GhostTextures["Right2"]));
 
             bodyRect = rect;
             feetRect = new Rectangle(rect.Bottom, (rect.Left + (int)rect.Width / 2), 1, (rect.Width / 2));
@@ -112,7 +106,7 @@ namespace Game2D.Model
 
                 if (bodyCollides == true)
                 {
-                    side = (side == GhostSide.Left) ? GhostSide.Right : GhostSide.Left;
+                    side = (side == GhostSide.Left1 || side == GhostSide.Left2) ? GhostSide.Right1 : GhostSide.Left1;
                 }
             }
             
@@ -120,13 +114,18 @@ namespace Game2D.Model
             feetCollides = false;
             groundCollides = false;
 
-            if (side == GhostSide.Right)
+            chooseSprite();
+
+            switch (side)
             {
-                director = new MotionDirector(new MotionDirector.Vector(speed, fallSpeed));
-            }
-            else if (side == GhostSide.Left)
-            {
-                director = new MotionDirector(new MotionDirector.Vector((-speed), fallSpeed));
+                case GhostSide.Left1:
+                case GhostSide.Left2:
+                    director = new MotionDirector(new MotionDirector.Vector((-speed), fallSpeed));
+                    break;
+                case GhostSide.Right1:
+                case GhostSide.Right2:
+                    director = new MotionDirector(new MotionDirector.Vector(speed, fallSpeed));
+                    break;
             }
         }
 
@@ -175,13 +174,14 @@ namespace Game2D.Model
                 default:
                     throw new Exception();
             }
-            if ((move == MotionDirector.Direction.Right) && (side == GhostSide.Left))
+
+            if ((move == MotionDirector.Direction.Right) && (side == GhostSide.Left1))
             {
-                side = GhostSide.Right;
+                side = GhostSide.Right1;
             }
-            else if ((move == MotionDirector.Direction.Left) && (side == GhostSide.Right))
+            else if ((move == MotionDirector.Direction.Left) && (side == GhostSide.Right1))
             {
-                side = GhostSide.Left;
+                side = GhostSide.Left1;
             }
         }
 
@@ -200,6 +200,11 @@ namespace Game2D.Model
             if (bodyRect.CheckCollisions(Collider.BodyRect))
             {
                 bodyCollides = true;
+            }
+
+            if (bodyRect.CheckCollisions(Collider.FeetRect))
+            {
+                alive = false;
             }
         }
 
@@ -233,21 +238,10 @@ namespace Game2D.Model
             return isSituated;
         }
 
-        public void CheckCollision(IMovable Collider)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CheckCollision(IMotionless collider)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Draw(RenderWindow windowHandler, int xOffset, int yOffset)
         {
-            prepareNewTexture();
-            sprite.Position = new Vector2f(bodyRect.Left + xOffset, bodyRect.Top + yOffset);
-            windowHandler.Draw(sprite);
+            sprite[side].Position = new Vector2f(bodyRect.Left + xOffset, bodyRect.Top + yOffset);
+            windowHandler.Draw(sprite[side]);
         }
     }
 }

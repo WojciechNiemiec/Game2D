@@ -53,11 +53,11 @@ namespace Game2D.Model.Components
         {
             string Gpath = path + "Ghost/";
 
-            GhostTextures.Add("Left0", new Texture(Gpath + "GLeft0.png"));
-            GhostTextures.Add("Left1", new Texture(Gpath + "GLeft1.png"));
+            GhostTextures.Add("Left1", new Texture(Gpath + "GLeft0.png"));
+            GhostTextures.Add("Left2", new Texture(Gpath + "GLeft1.png"));
 
-            GhostTextures.Add("Right0", new Texture(Gpath + "GRight0.png"));
-            GhostTextures.Add("Right1", new Texture(Gpath + "GRight1.png"));
+            GhostTextures.Add("Right1", new Texture(Gpath + "GRight0.png"));
+            GhostTextures.Add("Right2", new Texture(Gpath + "GRight1.png"));
         }
 
         public static void init()

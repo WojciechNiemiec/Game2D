@@ -100,6 +100,18 @@ namespace Game2D.Controler
             }
         }
 
+        public void RemoveNotAliveObjects()
+        {
+            foreach (IMovable element in context.Movables)
+            {
+                if (element.Alive == false)
+                {
+                    context.Movables.Remove(element);
+                    break;
+                }
+            }
+        }
+
         public void DrawObjects(RenderWindow windowHandler)
         {
             int XOffset = -(context.MainCharacterHandler.BodyRect.Left - 600);
@@ -113,6 +125,11 @@ namespace Game2D.Controler
             {
                 element.Draw(windowHandler, XOffset, 0);
             }
+        }
+
+        public void Delay(uint miliseconds)
+        {
+            
         }
     }
 }

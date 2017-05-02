@@ -12,3 +12,4 @@ C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\sfmlnet-window-2.dll
 C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\Game2D.pdb
 C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\obj\Debug\Game2DUnitTests.dll
 C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\obj\Debug\Game2DUnitTests.pdb
+C:\Users\Wojtek\Desktop\Game2D\Game2DUnitTests\bin\Debug\sfmlnet-audio-2.dll
